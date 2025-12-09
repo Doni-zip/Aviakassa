@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import flight_list
+from .views import flights_page
 
 urlpatterns = [
-    path("", flight_list, name="flight_list"),
+    path("", flights_page),
 ]

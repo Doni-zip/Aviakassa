@@ -1,25 +1,13 @@
 from django.shortcuts import render
-from django.utils import timezone
-from .models import Flight
+from .models import Flight, Country
 
-def flight_list(request):
-    today = timezone.now().date()
+def flights_page(request):
 
-    flights = Flight.objects.filter(date=today)
-
-    from_search = request.GET.get("from", "")
-    to_search = request.GET.get("to", "")
-
-    if from_search:
-        flights = flights.filter(departure_countrynameicontains=from_search)
-
-    if to_search:
-        flights = flights.filter(arrival_countrynameicontains=to_search)
-        
+    flights_list = Flight.objects.all()
+    country_list = Country.objects.all()
     context = {
-        'flights': flights,
-        'from_search': from_search,
-        'to_search': to_search
+        'flights_list': flights_list,
+        'country_list': country_list
     }
 
-    return render(request, "flight.html", context)
+    return render(request, "flights.html", context)
