@@ -119,7 +119,23 @@
 
 <body>
 
-<header>Авиакасса — Перелёты на сегодня</header>
+<header style="display:flex; justify-content:space-between; align-items:center;">
+    <span>Авиакасса — Перелёты на сегодня</span>
+
+    <div>
+        {% if user.is_authenticated %}
+            <span style="margin-right:10px;">{{ user.username }}</span>
+
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Выйти</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" style="color:white; margin-right:10px;">Войти</a>
+            <a href="{% url 'register' %}" style="color:white;">Регистрация</a>
+        {% endif %}
+    </div>
+</header>
 
 <div class="container">
 
